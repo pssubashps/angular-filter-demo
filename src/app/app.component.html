@@ -1,0 +1,27 @@
+<ul>
+  <li *ngFor = "let d of depts,let i=index">
+    <input type="checkbox" [value]="d.name" 
+    [checked]="d.isSelected"
+    (change) = filter($event,i)> {{d.name}}
+  </li>
+ 
+</ul>
+
+<table>
+
+  <tr>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Role</th>
+    <th>Department</th>
+   
+  </tr>
+  <tr *ngFor="let user of users">
+    <td> {{ user.id }}</td>
+    <td> {{ user.firstName }}</td>
+    <td>{{ user.type }}</td>
+    <td>{{ user.department }}</td>
+
+  </tr>
+</table>
+
