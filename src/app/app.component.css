@@ -13,3 +13,9 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
+ul{
+    list-style: none;
+}
+li{
+    display: inline-block;
+}

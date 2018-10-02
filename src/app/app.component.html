@@ -1,4 +1,4 @@
-<ul>
+<ul *ngIf="depts.length > 0">
   <li *ngFor = "let d of depts,let i=index">
     <input type="checkbox" [value]="d.name" 
     [checked]="d.isSelected"

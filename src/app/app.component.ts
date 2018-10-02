@@ -10,13 +10,12 @@ export class AppComponent implements OnInit {
   title = 'userfilter';
   users:any;
   depts = [
-    {name: 'all' ,isSelected:false},
-    {name: 'product' ,isSelected:true},
-    {name: 'Dept' ,isSelected:false}
+   
   ];
   tableFilter = [];
   constructor(private api: ApiService){}
   ngOnInit(){
+    this.getDepartment();
     this.getUsers();
   }
   filter (event,index) {
@@ -40,6 +39,20 @@ export class AppComponent implements OnInit {
     }
     this.getUsers();
    // console.log(this.depts);
+  }
+
+  private getDepartment() {
+    this.api.getDepartment().subscribe(
+      (res) => {
+        res['data']['department'].forEach(ele => {
+          const temp = {
+            name:ele,
+            isSelected:false
+          };
+          this.depts.push(temp);
+        });
+      }
+    );
   }
   private getUsers() {
     //skip the 0 element, because it is all,
