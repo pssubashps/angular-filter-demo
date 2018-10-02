@@ -10,7 +10,10 @@ export class AppComponent implements OnInit {
   title = 'userfilter';
   users:any;
   depts = [
-   
+   {
+     name:'all',
+     isSelected:false
+   }
   ];
   tableFilter = [];
   constructor(private api: ApiService){}
