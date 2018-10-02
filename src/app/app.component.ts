@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
     {name: 'product' ,isSelected:true},
     {name: 'Dept' ,isSelected:false}
   ];
+  tableFilter = [];
   constructor(private api: ApiService){}
   ngOnInit(){
     this.getUsers();
@@ -29,11 +30,29 @@ export class AppComponent implements OnInit {
     }else{
       this.depts[0].isSelected = false;
       this.depts[index].isSelected = event.target.checked;
+      // check all
+      const trueArray = this.depts.filter( (ele) => {
+        return ele.name != 'all' && ele.isSelected === true;
+      });
+      if(trueArray.length === (this.depts.length - 1)) {
+        this.depts[0].isSelected = true;
+      }
     }
-    console.log(this.depts);
+    this.getUsers();
+   // console.log(this.depts);
   }
   private getUsers() {
-    this.api.getUsrsList().subscribe(
+    //skip the 0 element, because it is all,
+    this.tableFilter = [];
+    for (var i =1; i < this.depts.length; i++) {
+      if(this.depts[i].isSelected) {
+        this.tableFilter.push({
+          department : this.depts[i].name
+        });
+      }
+    }
+   // console.log( this.tableFilter);
+    this.api.getUsrsList(this.tableFilter).subscribe(
       (res) => {
         this.users = res['data'].users;
       }

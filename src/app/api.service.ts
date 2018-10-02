@@ -8,12 +8,17 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getUsrsList() {
+  getUsrsList(tableFilter) {
     let url = environment.url;
     let headers = new HttpHeaders();
     let params = new HttpParams();
-    params = params.append('department', 'product');
-    params = params.append('department', 'Dept');
+    for (var i =0; i < tableFilter.length; i++) {
+      const obj = tableFilter[i];
+      const key =  Object.keys(obj)[0];
+      params = params.append(key, obj[key]);
+    }
+  //  params = params.append('department', 'product');
+  //  params = params.append('department', 'Dept');
    // params['order-by'] = 'firstName,desc';
     headers = headers.set('X-Jwt-Token',environment.token);
     console.log(headers.get('X-Jwt-Token'));
